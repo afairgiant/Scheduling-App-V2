@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.9.1</junit.version>
+        <junit.version>5.9.2</junit.version>
     </properties>
 
     <dependencies>
@@ -86,10 +86,7 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/resources/language</directory>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>

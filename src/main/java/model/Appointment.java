@@ -8,8 +8,8 @@ public class Appointment {
     private final String appointmentLocation;
     private final String appointmentDescription;
     private final String appointmentType;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
     private final int customerID;
     private final int userID;
     private final int contactID;

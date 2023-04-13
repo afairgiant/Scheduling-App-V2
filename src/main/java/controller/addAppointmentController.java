@@ -269,8 +269,7 @@ public class addAppointmentController implements Initializable {
             String type = appointmentTypeTxt.getText();
             int contactId = Integer.parseInt(contactHelper.findContact(appointmentContactComBx.getValue()));
             //TODO
-            //LocalDateTime startDateTime = LocalDateTime.parse(startUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            //LocalDateTime endDateTime = LocalDateTime.parse(endUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
             //LocalDateTime startDateTime = LocalDateTime.parse(startUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             //LocalDateTime endDateTime = LocalDateTime.parse(endUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             //ZonedDateTime startUTCZoned = ZonedDateTime.of(startDateTime, ZoneId.of("UTC"));
@@ -304,9 +303,7 @@ public class addAppointmentController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-/*            // Create the appointment object and insert it into the database
-            Appointment appointment = new Appointment(0, title, location, description, type, startUTCZoned.toLocalDateTime(), endUTCZoned.toLocalDateTime(), customerId, userId, contactId);
-            appointmentHelper.insertAppointment(appointment);*/
+
 
         } catch (SQLIntegrityConstraintViolationException e) {
             if (e.getMessage().contains("fk_customer_id")) {
@@ -375,103 +372,4 @@ public class addAppointmentController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-// --Commented out by Inspection START (3/27/2023 8:50 PM):
-//    /**
-//     *
-//     * @param customerID
-//     * @param newAppointmentID
-//     * @throws SQLException
-//     */
-//    private void checkForOverlappingAppointments(int customerID, int newAppointmentID) throws SQLException {
-//        ObservableList<Appointment> getAllAppointments = appointmentHelper.getAllAppointments(connection);
-//        LocalDate localDateStart = appointmentStartDatePick.getValue();
-//        LocalDate localDateEnd = appointmentEndDatePick.getValue();
-//
-//        LocalTime localTimeStart = LocalTime.parse(appointmentStartTimeComBx.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
-//        LocalTime localTimeEnd = LocalTime.parse(appointmentEndTimeComBx.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
-//
-//        LocalDateTime dateTimeStart = LocalDateTime.of(localDateStart, localTimeStart);
-//        LocalDateTime dateTimeEnd = LocalDateTime.of(localDateEnd, localTimeEnd);
-//
-//        for (Appointment appointment : getAllAppointments) {
-//            LocalDateTime checkStart = appointment.getStart();
-//            LocalDateTime checkEnd = appointment.getEnd();
-//            if (customerID == appointment.getCustomerID() && (newAppointmentID != appointment.getAppointmentID()) &&
-//                    (dateTimeStart.isEqual(checkStart) || dateTimeStart.isAfter(checkStart)) &&
-//                    (dateTimeStart.isEqual(checkEnd) || dateTimeStart.isBefore(checkEnd))) {
-//                common.showError("Start Time Overlap", "Start time overlaps with existing appointment.");
-//                return;
-//            }
-//            if (customerID == appointment.getCustomerID() && (newAppointmentID != appointment.getAppointmentID()) &&
-//                    (dateTimeEnd.isEqual(checkStart) || dateTimeEnd.isAfter(checkStart)) &&
-//                    (dateTimeEnd.isEqual(checkEnd) || dateTimeEnd.isBefore(checkEnd))) {
-//                common.showError("End Time Overlap", "End time overlaps with existing appointment.");
-//                return;
-//            }
-//            if ((customerID == appointment.getCustomerID()) && (newAppointmentID != appointment.getAppointmentID()) &&
-//                    (dateTimeStart.isBefore(checkStart)) && (dateTimeEnd.isAfter(checkEnd))) {
-//                common.showError("Appointment Overlap", "Appointment overlaps with existing appointment.");
-//                return;
-//            }
-//        }
-//    }
-// --Commented out by Inspection STOP (3/27/2023 8:50 PM)
-
-// --Commented out by Inspection START (3/27/2023 8:50 PM):
-//    /**
-//     *
-//     */
-//    public void validateAppointmentFields() {
-//        LocalDate localDateStart = appointmentStartDatePick.getValue();
-//        LocalDate localDateEnd = appointmentEndDatePick.getValue();
-//
-//        LocalTime localTimeStart = LocalTime.parse(appointmentStartTimeComBx.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
-//        LocalTime localTimeEnd = LocalTime.parse(appointmentEndTimeComBx.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
-//
-//        LocalDateTime dateTimeStart = LocalDateTime.of(localDateStart, localTimeStart);
-//        LocalDateTime dateTimeEnd = LocalDateTime.of(localDateEnd, localTimeEnd);
-//
-//        ZonedDateTime zoneDtStart = ZonedDateTime.of(dateTimeStart, ZoneId.systemDefault());
-//        ZonedDateTime zoneDtEnd = ZonedDateTime.of(dateTimeEnd, ZoneId.systemDefault());
-//
-//        ZonedDateTime convertStartEST = zoneDtStart.withZoneSameInstant(ZoneId.of("America/New_York"));
-//        ZonedDateTime convertEndEST = zoneDtEnd.withZoneSameInstant(ZoneId.of("America/New_York"));
-//
-//        LocalTime startAppointmentTimeToCheck = convertStartEST.toLocalTime();
-//        LocalTime endAppointmentTimeToCheck = convertEndEST.toLocalTime();
-//
-//        int workWeekStart = DayOfWeek.MONDAY.getValue();
-//        int workWeekEnd = DayOfWeek.FRIDAY.getValue();
-//
-//        LocalTime estBusinessHoursStart = LocalTime.of(8, 0, 0);
-//        LocalTime estBusinessHoursEnd = LocalTime.of(22, 0, 0);
-//
-//        if (convertStartEST.getDayOfWeek().getValue() < workWeekStart || convertStartEST.getDayOfWeek().getValue() > workWeekEnd || convertEndEST.getDayOfWeek().getValue() < workWeekStart || convertEndEST.getDayOfWeek().getValue() > workWeekEnd) {
-//            common.showError("Day is outside of business operations (Monday-Friday)", "Day is outside of business hours");
-//            return;
-//        }
-//
-//        if (startAppointmentTimeToCheck.isBefore(estBusinessHoursStart) || startAppointmentTimeToCheck.isAfter(estBusinessHoursEnd) || endAppointmentTimeToCheck.isBefore(estBusinessHoursStart) || endAppointmentTimeToCheck.isAfter(estBusinessHoursEnd)) {
-//            common.showError("Time is outside of business hours (8am-10pm EST)", "Time is outside of business hours (8am-10pm EST): " + startAppointmentTimeToCheck + " - " + endAppointmentTimeToCheck + " EST");
-//            return;
-//        }
-//
-//
-//        if (dateTimeStart.isAfter(dateTimeEnd)) {
-//            common.showError("Appointment has start time after end time", "Appointment has start time after end time");
-//            return;
-//        }
-//
-//        if (dateTimeStart.isEqual(dateTimeEnd)) {
-//            common.showError("Appointment has same start and end time", "Appointment has same start and end time");
-//            return;
-//        }
-//
-//        if (!appointmentTitleTxt.getText().isEmpty() && !appointmentDescriptionTxt.getText().isEmpty() && !appointmentLocationTxt.getText().isEmpty() && !appointmentTypeTxt.getText().isEmpty() && appointmentStartDatePick.getValue() != null && appointmentEndDatePick.getValue() != null && !appointmentStartTimeComBx.getValue().isEmpty() && !appointmentEndTimeComBx.getValue().isEmpty() && !customerIdTxt.getText().isEmpty() && !userIdTxt.getText().isEmpty()) {
-//            common.showError("All fields must be filled in", "Please fill in all fields.");
-//        }
-//    }
-// --Commented out by Inspection STOP (3/27/2023 8:50 PM)
-
 }
