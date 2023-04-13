@@ -234,6 +234,7 @@ public class addAppointmentController implements Initializable {
         System.out.println(customerID);
         //Insert new appointment into database
         int addAppt = appointmentHelper.addNewAppointment(title, location, description, type, dateTimeStart, dateTimeEnd, customerID, userID, contactID);
+        
         if(addAppt == -1){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/appointmentView.fxml"));
             Parent root = loader.load();
@@ -268,12 +269,12 @@ public class addAppointmentController implements Initializable {
             String type = appointmentTypeTxt.getText();
             int contactId = Integer.parseInt(contactHelper.findContact(appointmentContactComBx.getValue()));
             //TODO
-            LocalDateTime startDateTime = LocalDateTime.parse(startUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            LocalDateTime endDateTime = LocalDateTime.parse(endUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             //LocalDateTime startDateTime = LocalDateTime.parse(startUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             //LocalDateTime endDateTime = LocalDateTime.parse(endUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            ZonedDateTime startUTCZoned = ZonedDateTime.of(startDateTime, ZoneId.of("UTC"));
-            ZonedDateTime endUTCZoned = ZonedDateTime.of(endDateTime, ZoneId.of("UTC"));
+            //LocalDateTime startDateTime = LocalDateTime.parse(startUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            //LocalDateTime endDateTime = LocalDateTime.parse(endUTC, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            //ZonedDateTime startUTCZoned = ZonedDateTime.of(startDateTime, ZoneId.of("UTC"));
+            //ZonedDateTime endUTCZoned = ZonedDateTime.of(endDateTime, ZoneId.of("UTC"));
 
             String insertStatement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 

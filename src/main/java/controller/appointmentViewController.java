@@ -430,79 +430,7 @@ public class appointmentViewController implements Initializable {
         }
 
     }
-/*    private void saveUpdateAppointment(){
-        try {
-            System.out.println("\n ---- \n Save Updated Appointment Called");
-            ZoneId userZone = ZoneId.systemDefault();
 
-            String localStartDate = appointmentStartDatePick.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String localStartTime = appointmentStartTimeComBx.getValue();
-            System.out.println(localStartTime);
-
-            String localEndDate = appointmentEndDatePick.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String localEndTime = appointmentEndTimeComBx.getValue();
-
-
-            String startUTC = common.convertDateTimeUTC(localStartDate + " " + localStartTime + ":00");
-            String endUTC = common.convertDateTimeUTC(localEndDate + " " + localEndTime + ":00");
-
-            // Create a prepared statement with the query to update the appointment
-            String updateStatement = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
-            JDBC.setPreparedStatement(JDBC.getConnection(), updateStatement);
-            PreparedStatement preparedStatement = JDBC.getPreparedStatement();
-
-            //Set Values for prepared statement
-            preparedStatement.setInt(1, Integer.parseInt(appointmentIdTxt.getText())); //Appointment_ID
-            preparedStatement.setString(2, appointmentTitleTxt.getText()); //Title
-            preparedStatement.setString(3, appointmentDescriptionTxt.getText()); //Description
-            preparedStatement.setString(4, appointmentLocationTxt.getText()); //Location
-            preparedStatement.setString(5, appointmentTypeTxt.getText()); //Type
-            preparedStatement.setString(6, startUTC); //Start
-            preparedStatement.setString(7, endUTC); //End
-            preparedStatement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); //Last_Update
-            preparedStatement.setString(9, "admin"); //Last_Updated_By
-            preparedStatement.setInt(10, Integer.parseInt(customerIdTxt.getText())); //CustomerID
-            preparedStatement.setInt(11, Integer.parseInt(userIdTxt.getText())); //UserID
-            preparedStatement.setInt(12, Integer.parseInt(contactHelper.findContact(appointmentContactComBx.getValue()))); //ContactID
-            preparedStatement.setInt(13, Integer.parseInt(appointmentIdTxt.getText())); //Appointment_ID
-
-            // Execute the prepared statement
-            int rowsUpdated = preparedStatement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("\nAppointment updated successfully.");
-            } else {
-                System.out.println("\nFailed to update appointment.");
-            }
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            if (e.getMessage().contains("fk_customer_id")) {
-                // handle foreign key constraint violation for customer ID
-                String message = "The selected customer does not exist in the database.";
-                System.out.println("[ERROR] " + message);
-                common.showError("Cannot add or update appointment", message);
-            } else if (e.getMessage().contains("fk_user_id")) {
-                // handle foreign key constraint violation for user ID
-                String message = "The selected user does not exist in the database.";
-                System.out.println("[ERROR] " + message);
-                common.showError("Cannot add or update appointment", message);
-            } else if (e.getMessage().contains("fk_contact_id")) {
-                // handle foreign key constraint violation for contact ID
-                String message = "The selected contact does not exist in the database.";
-                System.out.println("[ERROR] " + message);
-                common.showError("Cannot add or update appointment", message);
-            } else {
-                // handle other integrity constraint violation errors
-                String message = "An error occurred while adding or updating the appointment.";
-                System.out.println("[ERROR] " + message);
-                common.showError("Cannot add or update appointment", message);
-            }
-        } catch (SQLException e) {
-            // handle other SQL exceptions
-            String message = "An error occurred while adding or updating the appointment.";
-            System.out.println("[ERROR] " + message);
-            common.showError("Cannot add or update appointment", message);
-        }
-    }*/
 
     /**
      * This method initializes the appointment view table and sets the cell value factories for each column.

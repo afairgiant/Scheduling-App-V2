@@ -1,5 +1,5 @@
 module scheduling_app.scheduling_app {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.j;

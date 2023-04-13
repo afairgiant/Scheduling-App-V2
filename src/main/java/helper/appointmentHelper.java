@@ -84,7 +84,7 @@ public class appointmentHelper {
      * @throws SQLException
      */
     public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentLocation, String appointmentDescription, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID, ZoneId userTimeZone) throws SQLException {
-        // Convert the start and end date/times to UTC
+        //Convert the start and end date/times to UTC
         //ZonedDateTime startUTC = start.atZone(userTimeZone).withZoneSameInstant(ZoneOffset.UTC);
         //ZonedDateTime endUTC = end.atZone(userTimeZone).withZoneSameInstant(ZoneOffset.UTC);
 
@@ -154,8 +154,8 @@ public class appointmentHelper {
             preparedStatement.setString(3, appointmentDescription); //Appointment Description
             preparedStatement.setString(4, appointmentLocation); //Appointment Location
             preparedStatement.setString(5, appointmentLocation); //Appointment Type
-            preparedStatement.setTimestamp(6, Timestamp.valueOf(start));//Appointment Start Date/Time
-            preparedStatement.setTimestamp(7, Timestamp.valueOf(end)); //Appointment End Date/Time
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(start));//Appointment Start Date/Time in UTC
+            preparedStatement.setTimestamp(7, Timestamp.valueOf(end)); //Appointment End Date/Time in UTC
             preparedStatement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); //Appointment Created_Date
             preparedStatement.setString(9, "admin"); //Appointment Created_By. Eventually maybe change so pulls in current user.
             preparedStatement.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now())); //Appointment Last_Update

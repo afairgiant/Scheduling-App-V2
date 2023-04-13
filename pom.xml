@@ -86,7 +86,7 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/resources/views</directory>
+                <directory>src/resources</directory>
             </resource>
             <resource>
                 <directory>src/resources/language</directory>
