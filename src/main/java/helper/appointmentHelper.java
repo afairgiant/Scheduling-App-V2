@@ -69,7 +69,7 @@ public class appointmentHelper {
         }
     }
     /**
-     *
+     * Updates database with the updated appointment information
      * @param appointmentID
      * @param appointmentTitle
      * @param appointmentLocation
@@ -141,6 +141,19 @@ public class appointmentHelper {
             common.showError("Cannot add or update appointment", message);
         }
     }
+    /**
+     * Adds new appointment to the database
+     * @param appointmentTitle
+     * @param appointmentLocation
+     * @param appointmentDescription
+     * @param appointmentType
+     * @param start
+     * @param end
+     * @param contactID
+     * @param userID
+     * @param contactID
+     * @return result
+     */
     public static int addNewAppointment(String appointmentTitle, String appointmentLocation, String appointmentDescription, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         int result = -0;
         try {
