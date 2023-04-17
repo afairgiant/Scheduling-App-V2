@@ -23,6 +23,10 @@ VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
 #### mysql connector: mysql-connector-j-8.0.32
 
 ### Program directions
+*Must have the JaveJDK, javaFX and mysql connector versions above installed to run application. 
+*Program requries a mysql database in order to run properly.
+
+
 When the program launches the login screen is displayed. The user needs to enter a valid user name and password (from the
 mysql database) and hit login. Once they are logged in they are presented with 4 buttons; 
 appointments, customers, reports and exit which will lead the user to their respected menus.
