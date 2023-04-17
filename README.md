@@ -24,6 +24,7 @@ VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
 
 ### Program directions
 *Must have the JaveJDK, javaFX and mysql connector versions above installed to run application. 
+
 *Program requries a mysql database in order to run properly.
 
 
