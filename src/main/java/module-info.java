@@ -13,4 +13,7 @@ module scheduling_app.scheduling_app {
 
     opens model to javafx.fxml;
     exports model;
+
+    opens helper to javafx.fxml;
+    exports helper;
 }
