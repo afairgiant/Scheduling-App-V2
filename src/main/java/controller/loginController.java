@@ -149,7 +149,7 @@ public class loginController implements Initializable {
             ZoneId zone = ZoneId.systemDefault();
             locationTxt.setText(String.valueOf(zone));
 
-            resourceBundle = ResourceBundle.getBundle("/language", Locale.getDefault());
+            resourceBundle = ResourceBundle.getBundle("/language/language", Locale.getDefault());
             loginLabel.setText(resourceBundle.getString("Login"));
             usernameLabel.setText(resourceBundle.getString("username"));
             passwordLabel.setText(resourceBundle.getString("password"));
