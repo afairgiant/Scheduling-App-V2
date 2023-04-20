@@ -381,22 +381,45 @@ public class appointmentViewController implements Initializable {
                 ObservableList<Appointment> getAllAppointments = appointmentHelper.getAllAppointments(connection);
                 int updatedAppointmentID = appointmentID;
 
+                // Loop through all existing appointments to check for overlaps
                 for (Appointment existingAppointments : getAllAppointments) {
                     LocalDateTime checkStart = existingAppointments.getStart();
                     LocalDateTime checkEnd = existingAppointments.getEnd();
 
-                    // Check if the new appointment overlaps with the existing appointment
-                    if (customerID == existingAppointments.getCustomerID() &&
-                            appointmentID != existingAppointments.getAppointmentID() &&
+                    // Check if new appointment overlaps with an existing appointment
+                    if (customerID == existingAppointments.getCustomerID() && appointmentID != existingAppointments.getAppointmentID() &&
+                            (dateTimeStart.isBefore(checkEnd)) && (dateTimeEnd.isAfter(checkStart))) {
+                        common.showError("Appointment overlap", "Appointment overlaps with an existing appointment");
+                        return;
+                    }
+
+                    // Check if new appointment start time overlaps with an existing appointment
+                    if (customerID == existingAppointments.getCustomerID() && appointmentID != existingAppointments.getAppointmentID() &&
+                            (dateTimeStart.isBefore(checkEnd)) && (checkStart.isBefore(dateTimeEnd))) {
+                        common.showError("Start Time Overlap", "Appointment start time overlaps with an existing appointment");
+                    }
+
+                    // Check if new appointment end time overlaps with an existing appointment
+                    if (customerID == existingAppointments.getCustomerID() && appointmentID != existingAppointments.getAppointmentID() &&
+                            (dateTimeEnd.isAfter(checkStart)) && (dateTimeEnd.isBefore(checkEnd))) {
+                        common.showError("End Time Overlap", "Appointment end time overlaps with an existing appointment");
+                    }
+                }
+
+
+/*                    // Check if the new appointment overlaps with the existing appointment
+                    if (customerID == existingAppointments.getCustomerID() && appointmentID != existingAppointments.getAppointmentID() &&
                             updatedAppointmentID != existingAppointments.getAppointmentID() && // ignore appointments with matching appointmentID
                             ((dateTimeStart.isEqual(checkStart) || dateTimeStart.isAfter(checkStart)) && dateTimeStart.isBefore(checkEnd)) ||
                             ((dateTimeEnd.isEqual(checkEnd) || dateTimeEnd.isBefore(checkEnd)) && dateTimeEnd.isAfter(checkStart)) ||
                             (dateTimeStart.isBefore(checkStart) && dateTimeEnd.isAfter(checkEnd))) {
-                        common.showError("Appointment Overlap", "Appointment overlaps with existing appointment.");
+                        String errorMessage = "Appointment Overlap: Appointment " + existingAppointments.getAppointmentID() + " overlaps with existing appointment.";
+                        common.showError("Appointment Overlap", errorMessage);
+                        System.out.println("Appointment Overlap error " + existingAppointments.getAppointmentID());
                         return;
                     }
                 }
-
+                */
 
 
                 System.out.println("\n All Checks Passed!");
@@ -417,6 +440,34 @@ public class appointmentViewController implements Initializable {
 
                 ObservableList<Appointment> updatedAppointmentsList = appointmentHelper.getAllAppointments(connection);
                 appointmentViewTable.getItems().addAll(updatedAppointmentsList);
+
+
+                ObservableList<String> times = FXCollections.observableArrayList();
+                DateTimeFormatter formatter_set = DateTimeFormatter.ofPattern("h:mm a");
+
+                LocalTime time = LocalTime.of(0, 0);
+                times.add(time.format(formatter_set));
+
+                for (int i = 1; i < 96; i++) {
+                    time = time.plusMinutes(15);
+                    times.add(time.format(formatter_set));
+                }
+
+                ObservableList<Contacts> allContactList = contactHelper.getAllContacts(connection);
+                ObservableList<String> allContactsNames = FXCollections.observableArrayList();
+                allContactList.forEach(contacts -> allContactsNames.add(contacts.getContactName()));
+                appointmentContactComBx.setItems(allContactsNames);
+                //Clear input boxes
+                appointmentIdTxt.clear();
+                appointmentTitleTxt.clear();
+                appointmentDescriptionTxt.clear();
+                appointmentLocationTxt.clear();
+                appointmentTypeTxt.clear();
+                customerIdTxt.clear();
+                appointmentStartTimeComBx.setItems(times);
+                appointmentEndTimeComBx.setItems(times);
+                customerIdTxt.clear();
+                userIdTxt.clear();
 
 
             } catch (NumberFormatException | SQLException e) {
@@ -578,7 +629,7 @@ public class appointmentViewController implements Initializable {
     /**
      * Validates the fields of an appointment
      * Checks the start and end dates and times of the appointment against business hours and days, and ensures that all necessary fields are filled.
-     * @throws common.showError exception for invalid input
+     * @throws Error exception for invalid input
      */
     public void validateAppointmentFields() {
         LocalDate localDateStart = appointmentStartDatePick.getValue();
