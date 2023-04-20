@@ -203,20 +203,28 @@ public class addAppointmentController implements Initializable {
         }
 
         ObservableList<Appointment> getAllAppointments = appointmentHelper.getAllAppointments(connection);
-
+        // Loop through all existing appointments to check for overlaps
         for (Appointment existingAppointments : getAllAppointments) {
             LocalDateTime checkStart = existingAppointments.getStart();
             LocalDateTime checkEnd = existingAppointments.getEnd();
-            // Check if the new appointment overlaps with the existing appointment
+
+            // Check if new appointment overlaps with an existing appointment
             if (customerID == existingAppointments.getCustomerID() &&
-                    randomAppointmentID != existingAppointments.getAppointmentID() &&
-                    ((dateTimeStart.isEqual(checkStart) || dateTimeStart.isAfter(checkStart)) &&
-                            dateTimeStart.isBefore(checkEnd)) ||
-                    ((dateTimeEnd.isEqual(checkEnd) || dateTimeEnd.isBefore(checkEnd)) &&
-                            dateTimeEnd.isAfter(checkStart)) ||
-                    (dateTimeStart.isBefore(checkStart) && dateTimeEnd.isAfter(checkEnd))) {
-                common.showError("Appointment Overlap", "Appointment overlaps with existing appointment.");
+                    (dateTimeStart.isBefore(checkEnd)) && (dateTimeEnd.isAfter(checkStart))) {
+                common.showError("Appointment overlap", "Appointment overlaps with an existing appointment");
                 return;
+            }
+
+            // Check if new appointment start time overlaps with an existing appointment
+            if (customerID == existingAppointments.getCustomerID() &&
+                    (dateTimeStart.isBefore(checkEnd)) && (checkStart.isBefore(dateTimeEnd))) {
+                common.showError("Start Time Overlap", "Appointment start time overlaps with an existing appointment");
+            }
+
+            // Check if new appointment end time overlaps with an existing appointment
+            if (customerID == existingAppointments.getCustomerID()  &&
+                    (dateTimeEnd.isAfter(checkStart)) && (dateTimeEnd.isBefore(checkEnd))) {
+                common.showError("End Time Overlap", "Appointment end time overlaps with an existing appointment");
             }
         }
 

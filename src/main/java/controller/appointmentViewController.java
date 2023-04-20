@@ -379,8 +379,6 @@ public class appointmentViewController implements Initializable {
                 }
 
                 ObservableList<Appointment> getAllAppointments = appointmentHelper.getAllAppointments(connection);
-
-
                 // Loop through all existing appointments to check for overlaps
                 for (Appointment existingAppointments : getAllAppointments) {
                     LocalDateTime checkStart = existingAppointments.getStart();
