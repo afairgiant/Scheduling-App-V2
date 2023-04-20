@@ -379,7 +379,7 @@ public class appointmentViewController implements Initializable {
                 }
 
                 ObservableList<Appointment> getAllAppointments = appointmentHelper.getAllAppointments(connection);
-                int updatedAppointmentID = appointmentID;
+
 
                 // Loop through all existing appointments to check for overlaps
                 for (Appointment existingAppointments : getAllAppointments) {
