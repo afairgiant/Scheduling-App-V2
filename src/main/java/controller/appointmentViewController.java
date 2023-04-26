@@ -349,7 +349,7 @@ public class appointmentViewController implements Initializable {
                 }
                 //If outside of work days(M-F)
                 if (convertStartEST.getDayOfWeek().getValue() < workWeekStart || convertStartEST.getDayOfWeek().getValue() > workWeekEnd || convertEndEST.getDayOfWeek().getValue() < workWeekStart || convertEndEST.getDayOfWeek().getValue() > workWeekEnd) {
-                    String message = "Appointment day is outside of business hours";
+                    String message = "Appointment day is outside of work week";
                     System.out.println("Error called: " + message);
                     common.showError("Day is outside of business operations (Monday-Friday)", message);
                     return;
