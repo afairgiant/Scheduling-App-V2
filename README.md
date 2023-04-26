@@ -23,19 +23,25 @@ VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
 #### mysql connector: mysql-connector-j-8.0.32
 
 ### Program directions
-*Must have the JaveJDK, javaFX and mysql connector versions above installed to run application. 
+*Must have the JavaJDK, javaFX and mysql connector versions above installed to run application. 
 
-*Program requries a mysql database in order to run properly, connection details can be changed in JDBC.java in helper package.
+*Program requires a mysql database in order to run properly, connection details can be changed in JDBC.java in helper package.
+Intelij CE by default should find the build file once it opens the parent directory of WGU-Scheduling-App.
+However, if it does not automatically find when the directory is opened, if you go to the configurations of intelij
+by hitting 'Alt+Shift+F10' and select edit configurations. Then in the top left corner there is a plus sign, click on that
+and select 'Application'. then proceed to give it a name, select java 17 SDK and in the box next to it put
+"scheduling_app.scheduling_app.Main". It should then run. But if you are missing the mysql-connector-j-8.0.32 
+dependency. It is located at the top level in the folder called mysql-connector-j-8.0.32.
 
 
-When the program launches the login screen is displayed. The user needs to enter a valid user name and password (from the
+When the program launches the login screen is displayed. The user needs to enter a valid username and password (from the
 mysql database) and hit login. Once they are logged in they are presented with 4 buttons; 
 appointments, customers, reports and exit which will lead the user to their respected menus.
 
 ### Additional Report
 For my additional report I displayed the busiest first level division by name with its number of appointments in a label and 
-below that there is a table showing all of the first level divisions with their number of appointments. I intially based it off
-of the total appointments by month and by type but added in the first level divisions so it was different. 
+below that there is a table showing all the first level divisions with their number of appointments. I initially based it off
+of the total appointments by month and by type but added in the first level divisions, so it was different. 
 It goes through and iterates through each appointment finding the customerID, then based off the customer ID it goes and gets
 that customers division name. If that current division name already exists in the division observablelist it adds 1 to the count.
 
