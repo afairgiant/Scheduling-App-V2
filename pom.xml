@@ -93,4 +93,11 @@
             </resource>
         </resources>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>WGU-Scheduling-App-C195</id>
+            <name>WGU-Scheduling-App</name>
+            <url>https://github.com/afairgiant/WGU-Scheduling-App</url>
+        </repository>
+    </distributionManagement>
 </project>
